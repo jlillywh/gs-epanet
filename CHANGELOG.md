@@ -5,6 +5,20 @@ All notable changes to the EPANET-GoldSim Bridge project will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-02-09
+
+### Added
+- Support for pump POWER output property (EN_PUMP_POWER = 18)
+  - Returns pump constant power rating in horsepower
+  - Useful for energy analysis and pump sizing
+- Support for pump EFFICIENCY output property (EN_PUMP_EFFIC = 17)
+  - Returns current computed pump efficiency in percent
+  - Enables real-time monitoring of pump performance
+
+### Changed
+- Updated DLL version from 1.0 to 1.1
+- Enhanced MappingLoader validation to accept POWER and EFFICIENCY properties
+
 ## [1.0.0] - 2026-02-09
 
 ### Added
