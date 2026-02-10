@@ -1,0 +1,74 @@
+EPANET-GoldSim Bridge Test Report 
+Generated: Sat 02/07/2026 16:43:42.64 
+======================================== 
+ 
+[1/6] Logger Tests 
+[FAIL] Logger Tests 
+Compiling Logger standalone test...
+'cl.exe' is not recognized as an internal or external command,
+operable program or batch file.
+Compilation failed!
+ 
+[2/6] MappingLoader Tests 
+[FAIL] MappingLoader Tests 
+========================================
+Compiling MappingLoader Test
+========================================
+'cl.exe' is not recognized as an internal or external command,
+operable program or batch file.
+
+========================================
+Compilation FAILED!
+========================================
+ 
+[3/6] EpanetWrapper Tests 
+[FAIL] EpanetWrapper Tests 
+========================================
+Compiling EpanetWrapper Test
+========================================
+'cl' is not recognized as an internal or external command,
+operable program or batch file.
+ERROR: Failed to compile EpanetWrapper.cpp
+ 
+[4/6] XF_REP_ARGUMENTS Tests 
+[PASS] XF_REP_ARGUMENTS Tests 
+ 
+[5/6] Performance Tests 
+[FAIL] Performance Tests 
+========================================
+Compiling Performance Property Tests
+========================================
+Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35723 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+test_performance_properties.cpp
+Microsoft (R) Incremental Linker Version 14.50.35723.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:test_performance_properties.exe 
+/LIBPATH:..\lib 
+epanet2.lib 
+Psapi.lib 
+/OUT:property_tests\test_performance_properties.exe 
+test_performance_properties.obj 
+test_performance_properties.obj : error LNK2019: unresolved external symbol __imp_EpanetBridge referenced in function "void __cdecl TestProperty15_InitializationPerformance(void)" (?TestProperty15_InitializationPerformance@@YAXXZ)
+property_tests\test_performance_properties.exe : fatal error LNK1120: 1 unresolved externals
+
+========================================
+Compilation failed!
+Make sure you run this from Visual Studio Developer Command Prompt
+========================================
+ 
+[6/6] Memory Leak Detection 
+[PASS] Memory Leak Detection 
+ 
+======================================== 
+Test Summary 
+======================================== 
+Total Tests:  6 
+Passed:       2 
+Failed:       4 
+======================================== 
+ 
+SOME TESTS FAILED! 
+Please review the output above for details. 

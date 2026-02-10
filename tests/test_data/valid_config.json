@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "logging_level": "INFO",
+  "inp_file": "simple_test.inp",
+  "inp_file_hash": "a3f5c8d9e2b1f4a6c7d8e9f0a1b2c3d4",
+  "hydraulic_timestep": 300,
+  "input_count": 3,
+  "output_count": 4,
+  "inputs": [
+    {
+      "index": 0,
+      "name": "ElapsedTime",
+      "object_type": "SYSTEM",
+      "property": "ELAPSEDTIME"
+    },
+    {
+      "index": 1,
+      "name": "J1",
+      "object_type": "NODE",
+      "property": "DEMAND"
+    },
+    {
+      "index": 2,
+      "name": "P1",
+      "object_type": "LINK",
+      "property": "STATUS"
+    }
+  ],
+  "outputs": [
+    {
+      "index": 0,
+      "name": "J1",
+      "object_type": "NODE",
+      "property": "PRESSURE"
+    },
+    {
+      "index": 1,
+      "name": "T1",
+      "object_type": "NODE",
+      "property": "TANKLEVEL"
+    },
+    {
+      "index": 2,
+      "name": "P1",
+      "object_type": "LINK",
+      "property": "FLOW"
+    },
+    {
+      "index": 3,
+      "name": "P2",
+      "object_type": "LINK",
+      "property": "VELOCITY"
+    }
+  ]
+}
