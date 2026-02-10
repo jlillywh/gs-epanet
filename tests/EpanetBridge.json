@@ -1,10 +1,12 @@
 {
-  "version": "1.1",
+  "version": "1.0",
   "logging_level": "DEBUG",
   "inp_file": "Pump_to_Tank.inp",
+  "inp_file_hash": "4cd65dfeeafee9fe135422952ecc3cba",
   "hydraulic_timestep": 300,
-  "input_count": 2,
-  "output_count": 3,
+  "_comment": "IMPORTANT: Set GoldSim Basic Time Step to match hydraulic_timestep (300 seconds)",
+  "input_count": 3,
+  "output_count": 5,
   "inputs": [
     {
       "index": 0,
@@ -16,7 +18,15 @@
       "index": 1,
       "name": "Pump1",
       "object_type": "LINK",
-      "property": "SETTING"
+      "property": "SETTING",
+      "comment": "Pump 1 setting: 0.0 to 1.0 (speed multiplier)"
+    },
+    {
+      "index": 2,
+      "name": "Outlet",
+      "object_type": "NODE",
+      "property": "EMITTER",
+      "comment": "Emitter coefficient at Outlet - controls tank outflow (higher = more flow)"
     }
   ],
   "outputs": [
@@ -24,19 +34,36 @@
       "index": 0,
       "name": "Tank1",
       "object_type": "NODE",
-      "property": "HEAD"
+      "property": "HEAD",
+      "comment": "Hydraulic head at Tank1 (should change if tank level changes)"
     },
     {
       "index": 1,
-      "name": "Pump1",
-      "object_type": "LINK",
-      "property": "POWER"
+      "name": "J2",
+      "object_type": "NODE",
+      "property": "PRESSURE",
+      "comment": "Pressure at Junction J2 (pump outlet)"
     },
     {
       "index": 2,
       "name": "Pump1",
       "object_type": "LINK",
-      "property": "EFFICIENCY"
+      "property": "FLOW",
+      "comment": "Flow through Pump1"
+    },
+    {
+      "index": 3,
+      "name": "1",
+      "object_type": "LINK",
+      "property": "FLOW",
+      "comment": "Flow out of Tank1 (through Pipe 1)"
+    },
+    {
+      "index": 4,
+      "name": "2",
+      "object_type": "LINK",
+      "property": "FLOW",
+      "comment": "Flow into Tank1 (through Pipe 2 from pump)"
     }
   ]
 }

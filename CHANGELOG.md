@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Useful for energy analysis and pump sizing
 - Support for pump EFFICIENCY output property (EN_PUMP_EFFIC = 17)
   - Returns current computed pump efficiency in percent
-  - Enables real-time monitoring of pump performance
+  - Enables monitoring of pump performance at each timestep
 
 ### Changed
 - Updated DLL version from 1.0 to 1.1

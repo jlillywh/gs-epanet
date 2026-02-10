@@ -1,12 +1,12 @@
 # EPANET-GoldSim Bridge
 
-A Windows DLL that connects GoldSim simulation software with EPA EPANET hydraulic modeling engine for real-time water distribution system analysis.
+A Windows DLL that connects GoldSim simulation software with EPA EPANET hydraulic modeling engine for coupled water distribution system analysis.
 
 ## What It Does
 
 The EPANET-GoldSim Bridge allows you to:
 - Control EPANET models from within GoldSim simulations
-- Adjust pump speeds, valve settings, and demands in real-time
+- Adjust pump speeds, valve settings, and demands at each timestep
 - Monitor pressures, flows, and tank levels at each timestep
 - Implement advanced control strategies using GoldSim's capabilities
 
@@ -109,7 +109,7 @@ A complete working example is included in `examples/Pump_to_Tank/`:
 - Pump on/off controlled by GoldSim deadband controller (0 = off, 1 = on)
 - EPANET calculates pump flow based on pump curve
 - Outlet flow controlled by emitter coefficient
-- Tank level monitored in real-time
+- Tank level monitored at each timestep
 
 <img src="examples/Pump_to_Tank/EPANET%20Pump%20Curve.png" alt="EPANET Pump Curve" width="50%">
 
@@ -227,7 +227,7 @@ First stable release with:
 - GoldSim External Function API implementation
 - JSON-based configuration system
 - Support for pump control, valve control, and emitter-based flow control
-- Real-time monitoring of pressures, flows, and tank levels
+- Monitoring of pressures, flows, and tank levels at each timestep
 - Validated tank level dynamics
 - Pump_to_Tank working example
 - Comprehensive error handling and logging

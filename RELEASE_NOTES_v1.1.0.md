@@ -4,7 +4,7 @@
 
 ## Overview
 
-Version 1.1.0 adds support for monitoring pump power and efficiency properties in real-time, enabling energy analysis and pump performance monitoring within GoldSim simulations.
+Version 1.1.0 adds support for monitoring pump power and efficiency properties at each simulation timestep, enabling energy analysis and pump performance monitoring within GoldSim simulations.
 
 ## New Features
 
@@ -19,7 +19,7 @@ Added two new output properties for pump monitoring:
 
 2. **EFFICIENCY** (EN_PUMP_EFFIC = 17)
    - Returns current computed pump efficiency in percent (%)
-   - Enables real-time monitoring of pump performance
+   - Enables monitoring of pump performance at each timestep
    - Returns 0% when pump is off
    - Reflects actual operating efficiency based on pump curve and operating point
 

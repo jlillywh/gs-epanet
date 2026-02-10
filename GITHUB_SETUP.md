@@ -58,7 +58,7 @@ git commit -m "Initial release v1.0.0
 - GoldSim External Function API implementation
 - JSON-based configuration system
 - Pump control, valve control, emitter-based flow control
-- Real-time monitoring of pressures, flows, tank levels
+- Monitoring of pressures, flows, tank levels at each timestep
 - Validated tank level dynamics
 - Pump_to_Tank working example with deadband controller
 - Comprehensive documentation and tests
@@ -83,7 +83,7 @@ After pushing, configure your repository on GitHub:
 ### Repository Description
 
 ```
-Windows DLL bridge connecting GoldSim simulation software with EPA EPANET hydraulic modeling for real-time water distribution system control
+Windows DLL bridge connecting GoldSim simulation software with EPA EPANET hydraulic modeling for coupled water distribution system simulation
 ```
 
 ### Topics (Tags)
