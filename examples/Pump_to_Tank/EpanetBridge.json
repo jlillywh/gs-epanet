@@ -1,12 +1,12 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "logging_level": "DEBUG",
   "inp_file": "Pump_to_Tank.inp",
   "inp_file_hash": "4cd65dfeeafee9fe135422952ecc3cba",
   "hydraulic_timestep": 300,
   "_comment": "IMPORTANT: Set GoldSim Basic Time Step to match hydraulic_timestep (300 seconds)",
   "input_count": 3,
-  "output_count": 5,
+  "output_count": 7,
   "inputs": [
     {
       "index": 0,
@@ -64,6 +64,20 @@
       "object_type": "LINK",
       "property": "FLOW",
       "comment": "Flow into Tank1 (through Pipe 2 from pump)"
+    },
+    {
+      "index": 5,
+      "name": "Pump1",
+      "object_type": "LINK",
+      "property": "POWER",
+      "comment": "Pump power rating in horsepower (HP)"
+    },
+    {
+      "index": 6,
+      "name": "Pump1",
+      "object_type": "LINK",
+      "property": "EFFICIENCY",
+      "comment": "Pump efficiency in percent (%)"
     }
   ]
 }
