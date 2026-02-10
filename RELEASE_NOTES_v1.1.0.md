@@ -12,16 +12,17 @@ Version 1.1.0 adds support for monitoring pump power and efficiency properties a
 
 Added two new output properties for pump monitoring:
 
-1. **POWER** (EN_PUMP_POWER = 18)
-   - Returns pump constant power rating in horsepower (HP)
-   - Useful for energy analysis and pump sizing
-   - Available for all pump types
+1. **POWER** (Computed from flow, head, and efficiency)
+   - Returns actual pump power consumption in horsepower (HP)
+   - Formula: Power (HP) = (Flow × Head × SG) / (3960 × Efficiency)
+   - Useful for energy analysis and operating cost calculations
+   - Returns 0 HP when pump is off or not flowing
 
 2. **EFFICIENCY** (EN_PUMP_EFFIC = 17)
-   - Returns current computed pump efficiency in percent (%)
+   - Returns current computed pump efficiency as a fraction (0-1)
    - Enables monitoring of pump performance at each timestep
-   - Returns 0% when pump is off
-   - Reflects actual operating efficiency based on pump curve and operating point
+   - Returns 0 when pump is off
+   - Note: EPANET returns efficiency as fraction (0.75 = 75%)
 
 ## Technical Changes
 

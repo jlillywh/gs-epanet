@@ -35,16 +35,17 @@ The `EpanetBridge.json` file now includes 7 outputs (previously 5):
 ### Power Output
 - Create a **Result** element connected to External Output 6
 - Units: Horsepower (HP)
-- Note: This pump uses a HEAD curve, so POWER may show 0.00 HP
-- For pumps with constant power settings, this will show the power rating
+- Computed from flow rate, head gain, and efficiency
+- Will show actual pump power consumption (e.g., ~6.6 HP at 100 GPM)
+- Shows 0 HP when pump is off
 
 ### Efficiency Output
 - Create a **Result** element connected to External Output 7
-- Units: Percent (%)
+- Units: Percent (%) - but EPANET returns as fraction
 - Expected values:
-  - When pump is ON: ~0.75% (based on global efficiency setting in .inp file)
-  - When pump is OFF: 0.0%
-- Note: EPANET returns efficiency as a fraction (0.75 = 75%), but the property is labeled as percent
+  - When pump is ON: ~0.75 (which is 75% expressed as fraction)
+  - When pump is OFF: 0.0
+- Multiply by 100 in GoldSim to display as percentage (75%)
 
 ### Creating Time History Plots
 
@@ -70,15 +71,17 @@ To visualize pump performance over time:
 ## Important Notes
 
 ### POWER Property
-- For pumps defined with HEAD curves (like Pump1), POWER returns the constant power rating
-- If the pump doesn't have a power setting, this may be 0.00
-- For pumps with POWER curves, this returns the power rating in HP
+- Computed from flow rate, head gain, and efficiency
+- Formula: Power (HP) = (Flow × Head × SG) / (3960 × Efficiency)
+- Returns actual pump power consumption in horsepower
+- Returns 0 HP when pump is off or not flowing
 
 ### EFFICIENCY Property
 - Returns current computed efficiency based on operating point
 - Calculated from pump curve and current flow/head
 - Global efficiency setting in .inp file affects this value
 - Returns 0% when pump is off
+- Note: EPANET returns efficiency as a fraction (0.75 = 75%)
 
 ### Timestep Synchronization
 - Ensure GoldSim's **Basic Time Step** matches `hydraulic_timestep` in JSON (300 seconds = 5 minutes)
@@ -107,14 +110,16 @@ END IF
 ## Troubleshooting
 
 **Efficiency shows 0.75% instead of 75%**
-- This is correct - EPANET returns efficiency as a fraction
-- The global efficiency in the .inp file is 75, which EPANET interprets as 75% = 0.75
+- This is correct - EPANET returns efficiency as a fraction (0.75 = 75%)
+- The global efficiency in the .inp file is 75, which EPANET interprets as 75%
+- The API returns this as 0.75 (fraction)
 - You can multiply by 100 in GoldSim if you want to display as 75%
 
-**Power shows 0.00 HP**
-- This is expected for pumps with HEAD curves
-- POWER property returns the constant power rating, not computed power
-- For energy calculations, you may need to compute power from flow and head
+**Power values look reasonable**
+- Power is computed from: Power (HP) = (Flow × Head × SG) / (3960 × Efficiency)
+- Example: 101 GPM × 194 ft / (3960 × 0.75) ≈ 6.6 HP
+- Power will vary with flow rate and operating point on pump curve
+- Power = 0 when pump is off
 
 **Efficiency doesn't change with flow**
 - Check that pump is actually running (setting = 1.0)

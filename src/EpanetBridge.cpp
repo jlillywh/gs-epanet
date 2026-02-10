@@ -561,9 +561,53 @@ EpanetBridge(int methodID, int* status, double* inargs, double* outargs)
                             // EN_LINKQUAL = 14
                             errcode = EpanetWrapper::GetLinkValue(output.epanet_index, 14, &value);
                         } else if (output.property == "POWER") {
-                            // EN_PUMP_POWER = 18 (Pump constant power rating in horsepower)
-                            g_logger.Debug("Getting LINK " + output.name + " POWER");
-                            errcode = EpanetWrapper::GetLinkValue(output.epanet_index, 18, &value);
+                            // Compute pump power from flow, head, and efficiency
+                            // Power (HP) = (Flow × Head × SG) / (3960 × Efficiency)
+                            // where Flow is in GPM, Head is in feet, Efficiency is decimal (0-1)
+                            g_logger.Debug("Computing LINK " + output.name + " POWER");
+                            
+                            double flow = 0.0;      // GPM
+                            double headGain = 0.0;  // feet
+                            double efficiency = 0.0; // fraction (0-1)
+                            double specificGravity = 1.0; // assume water
+                            
+                            // Get flow rate (EN_FLOW = 8)
+                            int flowErr = EpanetWrapper::GetLinkValue(output.epanet_index, 8, &flow);
+                            if (flowErr != 0) {
+                                g_logger.Error("Failed to get pump flow for power calculation");
+                                errcode = flowErr;
+                                break;
+                            }
+                            
+                            // Get head gain (EN_HEADLOSS = 10, but negative for pumps)
+                            int headErr = EpanetWrapper::GetLinkValue(output.epanet_index, 10, &headGain);
+                            if (headErr != 0) {
+                                g_logger.Error("Failed to get pump head for power calculation");
+                                errcode = headErr;
+                                break;
+                            }
+                            headGain = -headGain; // Pumps have negative headloss (they add head)
+                            
+                            // Get efficiency (EN_PUMP_EFFIC = 17)
+                            int efficErr = EpanetWrapper::GetLinkValue(output.epanet_index, 17, &efficiency);
+                            if (efficErr != 0) {
+                                g_logger.Error("Failed to get pump efficiency for power calculation");
+                                errcode = efficErr;
+                                break;
+                            }
+                            
+                            // Compute power in horsepower
+                            // If pump is off (flow = 0 or efficiency = 0), power = 0
+                            if (flow > 0.001 && efficiency > 0.001 && headGain > 0.0) {
+                                value = (flow * headGain * specificGravity) / (3960.0 * efficiency);
+                                g_logger.Debug("Pump POWER: flow=" + std::to_string(flow) + " GPM, head=" + 
+                                             std::to_string(headGain) + " ft, eff=" + std::to_string(efficiency) + 
+                                             ", power=" + std::to_string(value) + " HP");
+                            } else {
+                                value = 0.0;
+                                g_logger.Debug("Pump POWER: 0 HP (pump off or no flow)");
+                            }
+                            errcode = 0; // Success
                         } else if (output.property == "EFFICIENCY") {
                             // EN_PUMP_EFFIC = 17 (Current computed pump efficiency in percent)
                             g_logger.Debug("Getting LINK " + output.name + " EFFICIENCY");

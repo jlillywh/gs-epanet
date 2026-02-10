@@ -8,11 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2026-02-09
 
 ### Added
-- Support for pump POWER output property (EN_PUMP_POWER = 18)
-  - Returns pump constant power rating in horsepower
-  - Useful for energy analysis and pump sizing
+- Support for pump POWER output property (computed from flow, head, and efficiency)
+  - Returns actual pump power consumption in horsepower
+  - Formula: Power (HP) = (Flow × Head × SG) / (3960 × Efficiency)
+  - Useful for energy analysis and operating cost calculations
 - Support for pump EFFICIENCY output property (EN_PUMP_EFFIC = 17)
-  - Returns current computed pump efficiency in percent
+  - Returns current computed pump efficiency as a fraction (0.75 = 75%)
   - Enables monitoring of pump performance at each timestep
 
 ### Changed
