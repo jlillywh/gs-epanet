@@ -156,6 +156,8 @@ cd tests
 | NODE | DEMAND | Actual demand (computed) | GPM/LPS |
 | LINK | FLOW | Flow rate | GPM/LPS |
 | LINK | VELOCITY | Flow velocity | ft/s |
+| LINK | POWER | Pump power rating (pumps only) | HP |
+| LINK | EFFICIENCY | Pump efficiency (pumps only) | % |
 
 ## Important Notes
 

@@ -532,6 +532,8 @@ bool MappingLoader::IsValidProperty(const std::string& object_type,
                     property == "STATUS" ||
                     property == "SETTING" ||
                     property == "ENERGY" ||
+                    property == "POWER" ||
+                    property == "EFFICIENCY" ||
                     property == "QUALITY");
         }
     }

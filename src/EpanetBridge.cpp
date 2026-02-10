@@ -560,6 +560,14 @@ EpanetBridge(int methodID, int* status, double* inargs, double* outargs)
                         } else if (output.property == "QUALITY") {
                             // EN_LINKQUAL = 14
                             errcode = EpanetWrapper::GetLinkValue(output.epanet_index, 14, &value);
+                        } else if (output.property == "POWER") {
+                            // EN_PUMP_POWER = 18 (Pump constant power rating in horsepower)
+                            g_logger.Debug("Getting LINK " + output.name + " POWER");
+                            errcode = EpanetWrapper::GetLinkValue(output.epanet_index, 18, &value);
+                        } else if (output.property == "EFFICIENCY") {
+                            // EN_PUMP_EFFIC = 17 (Current computed pump efficiency in percent)
+                            g_logger.Debug("Getting LINK " + output.name + " EFFICIENCY");
+                            errcode = EpanetWrapper::GetLinkValue(output.epanet_index, 17, &value);
                         } else {
                             g_logger.Error("Unsupported LINK output property: " + output.property);
                             std::string error = "Unsupported LINK output property: " + output.property;
@@ -592,7 +600,7 @@ EpanetBridge(int methodID, int* status, double* inargs, double* outargs)
         case XF_REP_VERSION:
             // Report DLL version number
             // Requirements: 1.4
-            outargs[0] = 1.0;  // Version 1.0.0
+            outargs[0] = 1.1;  // Version 1.1.0
             break;
             
         case XF_REP_ARGUMENTS:
