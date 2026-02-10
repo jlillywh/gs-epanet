@@ -221,9 +221,14 @@ MIT License - see [LICENSE](LICENSE) file
 
 ## Version
 
-**Current Version: 1.0.0** (February 2026)
+**Current Version: 1.1.0** (February 2026)
 
-First stable release with:
+Version 1.1.0 adds support for pump power and efficiency monitoring:
+- POWER property: Monitor pump power consumption in horsepower
+- EFFICIENCY property: Monitor pump efficiency percentage
+- Enables energy cost analysis and pump performance tracking
+
+First stable release (1.0.0) features:
 - GoldSim External Function API implementation
 - JSON-based configuration system
 - Support for pump control, valve control, and emitter-based flow control

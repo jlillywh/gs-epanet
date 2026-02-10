@@ -17,23 +17,28 @@ param(
     [switch]$Rebuild
 )
 
-# MSBuild path for Visual Studio 2026 (version 18)
-$msbuildPath = "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe"
+# MSBuild path - try multiple Visual Studio versions
+$msbuildPaths = @(
+    "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\18\Professional\MSBuild\Current\Bin\MSBuild.exe",
+    "C:\Program Files\Microsoft Visual Studio\18\Enterprise\MSBuild\Current\Bin\MSBuild.exe"
+)
 
-# Check if MSBuild exists
-if (-not (Test-Path $msbuildPath)) {
-    # Try Professional edition
-    $msbuildPath = "C:\Program Files\Microsoft Visual Studio\18\Professional\MSBuild\Current\Bin\MSBuild.exe"
-    
-    if (-not (Test-Path $msbuildPath)) {
-        # Try Enterprise edition
-        $msbuildPath = "C:\Program Files\Microsoft Visual Studio\18\Enterprise\MSBuild\Current\Bin\MSBuild.exe"
-        
-        if (-not (Test-Path $msbuildPath)) {
-            Write-Error "MSBuild not found. Please install Visual Studio 2026."
-            exit 1
-        }
+$msbuildPath = $null
+foreach ($path in $msbuildPaths) {
+    if (Test-Path $path) {
+        $msbuildPath = $path
+        break
     }
+}
+
+if (-not $msbuildPath) {
+    Write-Error "MSBuild not found. Please install Visual Studio 2022 or later."
+    exit 1
 }
 
 Write-Host "Using MSBuild: $msbuildPath" -ForegroundColor Green
